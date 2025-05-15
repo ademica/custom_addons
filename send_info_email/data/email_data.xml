@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="attendance_email_info_template" model="mail.mail">
+        <field name="subject">()</field>
+        <field name="body_html"></field>
+        <field name="email_from"></field>
+        <field name="email_to"></field>
+        <field name="auto_delete"></field>
+    </record>
+</odoo>
+
+<!--This is not used yet, it's in development-->

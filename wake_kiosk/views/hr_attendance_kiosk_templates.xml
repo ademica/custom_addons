@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="wake_kiosk" inherit_id="hr_attendance.public_kiosk_mode">
+        <xpath expr="//body" position="after">
+            <script type="text/javascript">
+                setInterval(function () {
+                    fetch('/hr_attendance/kiosk_keepalive', {
+                        method: 'GET',
+                        headers: {'Content-Type': 'application/json'},
+                    });
+                }, 100000);
+                console.log("TEST"); 
+            </script>
+        </xpath>
+    </template>
+</odoo>
