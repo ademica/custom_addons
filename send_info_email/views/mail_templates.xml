@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo noupdate="0">
+
+    <record id="attendance_email_template_create" model="mail.template">
+        <field name="name">Attendance Email Notification - Created</field>
+        <field name="email_from">adema.sarajlija@gmail.com</field>
+        <field name="subject">Attendance Created Notification</field>
+        <field name="email_to">{{object.employee_id.work_email}}</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+        <field name="body_html">
+            <![CDATA[
+                <p>Hello <t t-out="object.employee_id.name"/>,</p>
+                    
+                <p>Your attendance record with the following data:</p> 
+                
+                <ul>
+                    <li>
+                        Checked in at <t t-out="object.check_in"/>
+                    </li>
+                    <t t-if="object.check_out">
+                        <li>
+                            Checked out at <t t-out="object.check_out"/>
+                        </li>
+                    </t>
+                    <t t-else>
+                        <li>
+                            Checked out at <em>Not yet checked out</em>
+                        </li>
+                    </t>
+                </ul>
+
+                <p>has been <strong>created</strong></p>
+                    
+                <p>Regards,
+                <br>HR Team</p>
+            ]]>
+        </field>
+    </record>
+
+    <record id="attendance_email_template_write" model="mail.template">
+        <field name="name">Attendance Email Notification - Edited</field>
+        <field name="email_from">adema.sarajlija@gmail.com</field>
+        <field name="subject">Attendance Edited Notification</field>
+        <field name="email_to">{{object.employee_id.work_email}}</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+        <field name="body_html">
+            <![CDATA[
+                <p>Hello <t t-out="object.employee_id.name"/>,</p>
+                    
+                <p>Your attendance record with the following data:</p> 
+                
+                <ul>
+                <li>
+                    Checked in at <t t-out="context_timestamp(object.check_in).strftime('%d/%m/%Y %H:%M')"/>
+                </li>
+                <t t-if="object.check_out">
+                    <li>
+                        Checked out at <t t-out="context_timestamp(object.check_out).strftime('%d/%m/%Y %H:%M')"/>
+                    </li>
+                </t>
+                    <t t-else>
+                        <li>
+                            Checked out at <em>Not yet checked out</em>
+                        </li>
+                    </t>
+                </ul>
+
+                <p>has been <strong>edited</strong> by </p>
+                    
+                <p>Regards,
+                <br>HR Team</p>
+            ]]>
+        </field>
+    </record>
+
+    <record id="attendance_email_template_unlink" model="mail.template">
+        <field name="name">Attendance Email Notification - Deleted</field>
+        <field name="email_from">adema.sarajlija@gmail.com</field>
+        <field name="subject">Attendance Deleted Notification</field>
+        <field name="email_to">{{object.employee_id.work_email}}</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+        <field name="body_html">
+            <![CDATA[
+                <p>Hello <t t-out="object.employee_id.name"/>,</p>
+                    
+                <p>Your attendance record with the following data:</p> 
+                
+                <ul>
+                <li>
+                    Checked in at <t t-out="context_timestamp(object.check_in).strftime('%d/%m/%Y %H:%M')"/>
+                </li>
+                <t t-if="object.check_out">
+                    <li>
+                        Checked out at <t t-out="context_timestamp(object.check_out).strftime('%d/%m/%Y %H:%M')"/>
+                    </li>
+                </t>
+                <t t-else>
+                        <li>
+                            Previously checked out at <em>Was not checked out</em>
+                        </li>
+                    </t>
+                </ul>
+
+                <p>has been <strong>deleted</strong> by </p>
+                    
+                <p>Regards,
+                <br>HR Team</p>
+            ]]>
+        </field>
+    </record>
+
+</odoo>

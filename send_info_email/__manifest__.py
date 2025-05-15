@@ -22,7 +22,7 @@ Long description of module's purpose
 
     # always loaded
     'data': [
-        #'data/data.xml',
+        'views/mail_templates.xml',
         # 'security/ir.model.access.csv',
         'views/hr_employee_views.xml',
         #'views/attendance_email_template.xml',
