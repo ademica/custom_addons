@@ -2,112 +2,87 @@
 
 <odoo noupdate="0">
 
-    <record id="attendance_email_template_create" model="mail.template">
-        <field name="name">Attendance Email Notification - Created</field>
+    <record id="attendance_email_notification_template" model="mail.template">
+        <field name="name">Attendance Email Notification</field>
         <field name="email_from">adema.sarajlija@gmail.com</field>
-        <field name="subject">Attendance Created Notification</field>
+        <field name="subject">Attendance Notification</field>
         <field name="email_to">{{object.employee_id.work_email}}</field>
         <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
         <field name="body_html">
             <![CDATA[
-                <p>Hello <t t-out="object.employee_id.name"/>,</p>
-                    
-                <p>Your attendance record with the following data:</p> 
-                
-                <ul>
-                    <li>
-                        Checked in at <t t-out="ctx.get('check_in_str')"/>
-                    </li>
-                    <t t-if="object.check_out">
-                        <li>
-                            Checked out at <t t-out="ctx.get('check_out_str')"/>
-                        </li>
-                    </t>
-                    <t t-else>
-                        <li>
-                            Checked out at <em>Not yet checked out</em>
-                        </li>
-                    </t>
-                </ul>
 
-                <p>has been <strong>created</strong></p>
-                    
-                <p>Regards,
-                <br>HR Team</p>
-            ]]>
-        </field>
-    </record>
-
-    <record id="attendance_email_template_write" model="mail.template">
-        <field name="name">Attendance Email Notification - Edited</field>
-        <field name="email_from">adema.sarajlija@gmail.com</field>
-        <field name="subject">Attendance Edited Notification</field>
-        <field name="email_to">{{object.employee_id.work_email}}</field>
-        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
-        <field name="body_html">
-            <![CDATA[
                 <p>Hello <t t-out="object.employee_id.name"/>,</p>
-                    
-                <p>Your attendance record with the following data:</p> 
-                
-                <ul>
-                <li>
-                    Checked in at <t t-out="ctx.get('check_in_str')"/>
-                </li>
-                <t t-if="object.check_out">
-                    <li>
-                        Checked out at <t t-out="ctx.get('check_out_str')"/>
-                    </li>
+
+                <t t-set="create_user" t-value="object.create_uid.name"/>
+                <t t-set="edit_user" t-value="object.write_uid.name"/> 
+                <t t-set="logged_user" t-value="user.name"/>   
+                <t t-set="action_messages" t-value="{
+                    'created': 'Your attendance record was created by ' + create_user + ' with the following data:',
+                    'edited': 'Your attendance record was edited by ' + edit_user,
+                    'deleted': 'Your attendance record with the following data was deleted by ' + logged_user
+                }"/>
+
+                <t t-if="ctx.get('action') == 'edited'">
+                    <p><t t-out="action_messages['edited']"/></p>
+                    <p>The following changes were made:</p>
+                    <ul>
+                        <t t-if="ctx.get('old_values', {}).get('check_in')">
+                            <li>
+                                Check-in time updated from:
+                                <strong><t t-out="format_datetime(ctx['old_values']['check_in'], dt_format='dd/MM/yyyy HH:mm:ss')"/></strong>
+                                to
+                                <strong><t t-out="format_datetime(object.check_in, dt_format='dd/MM/yyyy HH:mm:ss')"/></strong>
+                            </li>
+                        </t>
+                        <t t-if="'check_out' in ctx.get('old_values', {})">
+                            <t t-if="ctx['old_values'].get('check_out')">
+                                <li>
+                                    Check-out time updated from:
+                                    <strong><t t-out="format_datetime(ctx['old_values']['check_out'], dt_format='dd/MM/yyyy HH:mm:ss')"/></strong>
+                                    to
+                                    <strong><t t-out="format_datetime(object.check_out, dt_format='dd/MM/yyyy HH:mm:ss')"/></strong>
+                                </li>
+                            </t>
+                            <t t-else="">
+                                <li>
+                                    Check-out time: <strong><t t-out="format_datetime(object.check_out, dt_format='dd/MM/yyyy HH:mm:ss')"/></strong>
+                                </li>
+                            </t>
+                        </t>
+                    </ul>
                 </t>
-                    <t t-else>
-                        <li>
-                            Checked out at <em>Not yet checked out</em>
-                        </li>
-                    </t>
-                </ul>
-
-                <p>has been <strong>edited</strong> by </p>
-                    
-                <p>Regards,
-                <br>HR Team</p>
-            ]]>
-        </field>
-    </record>
-
-    <record id="attendance_email_template_unlink" model="mail.template">
-        <field name="name">Attendance Email Notification - Deleted</field>
-        <field name="email_from">adema.sarajlija@gmail.com</field>
-        <field name="subject">Attendance Deleted Notification</field>
-        <field name="email_to">{{object.employee_id.work_email}}</field>
-        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
-        <field name="body_html">
-            <![CDATA[
-                <p>Hello <t t-out="object.employee_id.name"/>,</p>
-                    
-                <p>Your attendance record with the following data:</p> 
                 
-                <ul>
-                <li>
-                    Checked in at <t t-out="ctx.get('check_in_str')"/>
-                </li>
-                <t t-if="object.check_out">
-                    <li>
-                        Checked out at <t t-out="ctx.get('check_out_str')"/>
-                    </li>
-                </t>
-                <t t-else>
-                        <li>
-                            Previously checked out at <em>Was not checked out</em>
-                        </li>
+                <t t-else="">
+                    <t t-if="ctx.get('action') == 'created'">
+                        <p>
+                            <t t-out="action_messages['created']"/>
+                        </p>
                     </t>
-                </ul>
+                    <t t-if="ctx.get('action') == 'deleted'">
+                        <p>
+                            <t t-out="action_messages['deleted']"/>
+                        </p>
+                    </t>
+                    <ul>
+                        <li>
+                            Check-in time: <t t-out="format_datetime(object.check_in, dt_format='dd/MM/yyyy HH:mm:ss')"/>
+                        </li>
+                        <t t-if="object.check_out">
+                            <li>
+                                Check-out time: <t t-out="format_datetime(object.check_out, dt_format='dd/MM/yyyy HH:mm:ss')"/>
+                            </li>
+                        </t>
+                        <t t-else>
+                            <li>
+                                Check-out time: <em>Not yet checked out</em>
+                            </li>
+                        </t>
+                    </ul>
+                </t>
 
-                <p>has been <strong>deleted</strong> by </p>
-                    
                 <p>Regards,
                 <br>HR Team</p>
             ]]>
         </field>
     </record>
-
 </odoo>
