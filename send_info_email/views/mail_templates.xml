@@ -16,11 +16,11 @@
                 
                 <ul>
                     <li>
-                        Checked in at <t t-out="object.check_in"/>
+                        Checked in at <t t-out="ctx.get('check_in_str')"/>
                     </li>
                     <t t-if="object.check_out">
                         <li>
-                            Checked out at <t t-out="object.check_out"/>
+                            Checked out at <t t-out="ctx.get('check_out_str')"/>
                         </li>
                     </t>
                     <t t-else>
@@ -52,11 +52,11 @@
                 
                 <ul>
                 <li>
-                    Checked in at <t t-out="context_timestamp(object.check_in).strftime('%d/%m/%Y %H:%M')"/>
+                    Checked in at <t t-out="ctx.get('check_in_str')"/>
                 </li>
                 <t t-if="object.check_out">
                     <li>
-                        Checked out at <t t-out="context_timestamp(object.check_out).strftime('%d/%m/%Y %H:%M')"/>
+                        Checked out at <t t-out="ctx.get('check_out_str')"/>
                     </li>
                 </t>
                     <t t-else>
@@ -88,11 +88,11 @@
                 
                 <ul>
                 <li>
-                    Checked in at <t t-out="context_timestamp(object.check_in).strftime('%d/%m/%Y %H:%M')"/>
+                    Checked in at <t t-out="ctx.get('check_in_str')"/>
                 </li>
                 <t t-if="object.check_out">
                     <li>
-                        Checked out at <t t-out="context_timestamp(object.check_out).strftime('%d/%m/%Y %H:%M')"/>
+                        Checked out at <t t-out="ctx.get('check_out_str')"/>
                     </li>
                 </t>
                 <t t-else>
