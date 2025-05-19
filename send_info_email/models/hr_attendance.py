@@ -31,7 +31,7 @@ class HrAttendance(models.Model):
 
     def _send_attendance_email(self, action, old_values=None):
         """
-        Send informative email to an employee when something changes in his attendance record
+        Send informative email to an employee when his check in or check out time changes in his attendance record
         """
         for record in self:
             if record.employee_id.receive_email:
