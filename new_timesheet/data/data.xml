@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <odoo>
+        <data>
+            <!-- Activity Records -->
+            <record id="assistenza_tecnica" model="new_timesheet.activity">
+                <field name="code">P</field>
+                <field name="description">Assistenza tecnica</field>
+            </record>
+            <record id="assistenza_interna" model="new_timesheet.activity">
+                <field name="code">PN</field>
+                <field name="description">Assistenza interna</field>
+            </record>
+            <record id="supervisione_tecnica" model="new_timesheet.activity">
+                <field name="code">PR</field>
+                <field name="description">Supervisione tecnica</field>
+            </record>
+            <record id="backoffice_operativo" model="new_timesheet.activity">
+                <field name="code">B</field>
+                <field name="description">Backoffice operativo</field>
+            </record>
+            <record id="backoffice_interno" model="new_timesheet.activity">
+                <field name="code">BN</field>
+                <field name="description">Backoffice interno</field>
+            </record>
+            <record id="supervisione_backoffice" model="new_timesheet.activity">
+                <field name="code">BR</field>
+                <field name="description">Supervisione backoffice</field>
+            </record>
+            <record id="varie" model="new_timesheet.activity">
+                <field name="code">SV</field>
+                <field name="description">Varie, non definibile</field>
+            </record>
+
+            
+        </data>
+    </odoo>
