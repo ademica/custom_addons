@@ -23,13 +23,19 @@ Long description of module's purpose
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/hr_attendance_kiosk_templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
     
     ],
-    'license': 'OPL-1',
+    
+    'assets': {
+        'hr_attendance.assets_public_attendance': [
+            'wake_kiosk/static/src/public_kiosk/public_kiosk_app.js'
+        ],
+    },
+
+    'license': 'OPL-1', 
     'installable': True,
 }
 
