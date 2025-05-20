@@ -5,12 +5,12 @@ import { patch } from "@web/core/utils/patch";
 import { onWillDestroy } from "@odoo/owl";
 
 patch(App.kioskAttendanceApp.prototype, {
-    
+
     setup() {
         super.setup()
-        
-        this.keepaliveTimer = null; 
-        
+
+        this.keepaliveTimer = null;
+
         this.minTime = 2 * 60 * 1000;
         this.maxTime = 5 * 60 * 1000;
         this.workingHours = [
@@ -20,8 +20,8 @@ patch(App.kioskAttendanceApp.prototype, {
         ];
 
         this._keepAlive();
-        
-        //Prevents memory leaks 
+
+        //Prevents memory leaks
         onWillDestroy(() => {
             if (this.keepaliveTimer) {
                 clearTimeout(this.keepaliveTimer);
@@ -51,7 +51,7 @@ patch(App.kioskAttendanceApp.prototype, {
         }
 
         const randomTime = Math.floor(Math.random() * (this.maxTime - this.minTime + 1)) + this.minTime;
-    
+
         this.keepaliveTimer = setTimeout(() => {
             this._keepAlive();
         }, randomTime);
