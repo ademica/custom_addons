@@ -14,9 +14,9 @@ patch(App.kioskAttendanceApp.prototype, {
         this.minTime = 2 * 60 * 1000;
         this.maxTime = 5 * 60 * 1000;
         this.workingHours = [
-            {start:7, end:10},
-            {start:12, end:15},
-            {start:17, end:19}
+            { start:7, end:10 },
+            { start:12, end:15 },
+            { start:17, end:19 }
         ];
 
         this._keepAlive();
