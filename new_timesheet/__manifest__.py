@@ -18,17 +18,21 @@ Long description of module's purpose
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'analytic'], #Check this later
+    'depends': ['base', 'analytic', 'hr_timesheet','helpdesk_timesheet'],
 
     # always loaded
     'data': [
         'data/data.xml',
-        'security/ir.model.access.csv'
+        'security/ir.model.access.csv',
+        'views/hr_timesheet_activity_views.xml',
+        'views/hr_timesheet_service_views.xml',
+        'views/hr_timesheet_menus.xml',
+        'views/hr_timesheet_views.xml',
+        'views/helpdesk_ticket_views.xml',
     ],
 
     # only loaded in demonstration mode
     'demo': [
-        
     ],
     'license': 'OPL-1',
     'installable': True,
