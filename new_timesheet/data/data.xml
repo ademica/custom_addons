@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
     <odoo>
-        <data>
+        <data noupdate="1">
             <!-- Activity Records -->
             <record id="assistenza_tecnica" model="new_timesheet.activity">
                 <field name="short_code">P</field>
@@ -32,9 +32,9 @@
             </record>
 
             <!-- Service Records -->
-            <record id="assemblagio" model="new_timesheet.service">
+            <record id="assemblaggio" model="new_timesheet.service">
                 <field name="short_code">ATA</field>
-                <field name="description">Assemblagio</field>
+                <field name="description">Assemblaggio</field>
             </record>
             <record id="cloud_architect" model="new_timesheet.service">
                 <field name="short_code">ATC</field>
